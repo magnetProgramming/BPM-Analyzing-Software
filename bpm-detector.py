@@ -14,5 +14,16 @@ app.title("BPM Detector " + appVersion)
 
 
 
-app.mainloop()
 
+
+
+
+
+
+
+
+
+
+
+
+app.mainloop()
