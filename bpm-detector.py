@@ -1,10 +1,14 @@
 import customtkinter
 import librosa
+import threading
+import pygame
+
 
 app = customtkinter.CTk()
 
 appVersion = "Version 1.0"
 audioFile = None
+pygame.mixer.init()
 
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("blue")
@@ -14,6 +18,19 @@ app.resizable(width=False, height=False)
 
 app.title(f"BPM Detector {appVersion}")
 
+
+def playSong():
+    global audioFile
+    try:
+        pygame.mixer.music.load(audioFile)
+        pygame.mixer.music.play()
+
+    except:
+        return
+
+def stopSong():
+    pygame.mixer.music.stop()
+    
 
 def chooseSongFileDialog():
     global audioFile
@@ -30,8 +47,8 @@ def detectBPM():
 
 
 
-    except:
-        detectedBPM_Label.configure(text="Error")
+    except Exception as e:
+        detectedBPM_Label.configure(text=f"Error: {e}")
 
 def about():
     aboutWindow = customtkinter.CTkToplevel()
@@ -48,10 +65,16 @@ def about():
 detectedBPM_Label = customtkinter.CTkLabel(master=app, text="")
 detectedBPM_Label.pack()
 
+playMusicButton = customtkinter.CTkButton(master=app, text="Play selected song", command=lambda: threading.Thread(target=playSong).start())
+playMusicButton.pack(padx=20, pady=20)
+
+stopMusicButton = customtkinter.CTkButton(master=app, text="Stop selected song", command=lambda: threading.Thread(target=stopSong).start())
+stopMusicButton.pack(padx=20, pady=20)
+
 chooseSongButton = customtkinter.CTkButton(master=app, text="Choose Song", command=chooseSongFileDialog)
 chooseSongButton.pack(padx=20, pady=20)
 
-detectBPM_Button = customtkinter.CTkButton(master=app, text="Detect BPM", command=detectBPM)
+detectBPM_Button = customtkinter.CTkButton(master=app, text="Detect BPM", command=lambda: threading.Thread(target=detectBPM).start())
 detectBPM_Button.pack(padx=20, pady=20)
 
 aboutButton = customtkinter.CTkButton(master=app, text="about", command=about)
