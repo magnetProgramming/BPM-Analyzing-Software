@@ -18,7 +18,7 @@ app.title("BPM Detector " + appVersion)
 
 
 
-
+aboutButton = customtkinter.CTkButton(master=app, )
 
 
 
