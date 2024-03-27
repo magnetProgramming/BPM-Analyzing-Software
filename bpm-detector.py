@@ -45,14 +45,14 @@ def about():
     appName_VersionNameLabel.pack()
 
 
+detectedBPM_Label = customtkinter.CTkLabel(master=app, text="")
+detectedBPM_Label.pack()
+
 chooseSongButton = customtkinter.CTkButton(master=app, text="Choose Song", command=chooseSongFileDialog)
 chooseSongButton.pack(padx=20, pady=20)
 
 detectBPM_Button = customtkinter.CTkButton(master=app, text="Detect BPM", command=detectBPM)
 detectBPM_Button.pack(padx=20, pady=20)
-
-detectedBPM_Label = customtkinter.CTkLabel(master=app, text="")
-detectedBPM_Label.pack()
 
 aboutButton = customtkinter.CTkButton(master=app, text="about", command=about)
 aboutButton.pack(padx=20, pady=20)
