@@ -25,8 +25,8 @@ def playSong():
         pygame.mixer.music.load(audioFile)
         pygame.mixer.music.play()
 
-    except:
-        return
+    except Exception as e:
+        print(f"Error playing song: {e}")
 
 def stopSong():
     pygame.mixer.music.stop()
